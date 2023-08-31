@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Generate
+        run: python3 compile.py
+
+      - name: Copy artifacts to public folder
+        run: cp onomatopoeia.json public/onomatopoeia.json
+
+      - name: Package web sources
+        run: tar -czvf web-public.tar.gz public
+
+      - name: Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: "Latest build"
+          files: |
+            onomatopoeia.json
+            web-public.tar.gz
