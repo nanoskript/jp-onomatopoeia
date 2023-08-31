@@ -1,0 +1,33 @@
+.term-search-form {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.term-search-input {
+  flex: 1;
+}
+
+.entry-list h3 {
+  font-size: x-large;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.entry-list ul {
+  margin-bottom: 1.5rem;
+}
+
+.entry-list li {
+  margin: 0;
+}
+
+.entry-list .entry-details {
+  font-size: smaller;
+  color: dimgray;
+}
+
+footer {
+  text-align: center;
+  padding-bottom: 2rem;
+}

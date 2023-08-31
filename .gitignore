@@ -1,0 +1,4 @@
+/.venv
+/.pdm.toml
+/onomatopoeia.json
+/public/onomatopoeia.json
