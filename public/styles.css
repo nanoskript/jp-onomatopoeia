@@ -8,6 +8,10 @@
   flex: 1;
 }
 
+.entry-list-heading {
+  margin-top: 1rem;
+}
+
 .entry-list h3 {
   font-size: x-large;
   margin-top: 1rem;

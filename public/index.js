@@ -89,7 +89,11 @@ const SearchResults = ({ query }) => {
   }
 
   if (pattern.length === 0) {
-    return html``;
+    return html`
+      <h2 style="text-align: center; margin: 8rem 0;">
+        Search for a sound effect!
+      </h2>
+    `;
   }
 
   // Sort keys by length and then lexicographically.
@@ -99,7 +103,13 @@ const SearchResults = ({ query }) => {
 
   // Find exact prefixes.
   const prefixMatches = keys.filter((key) => key.startsWith(pattern));
-  if (prefixMatches.length === 0) {
+
+  // Find matches in the middle of a key.
+  const infixMatches = keys.filter(
+    (key) => !key.startsWith(pattern) && key.includes(pattern),
+  );
+
+  if (prefixMatches.length === 0 && infixMatches.length === 0) {
     return html`
       <div>
         <h2 style="text-align: center; margin: 8rem 0;">No results found</h2>
@@ -112,7 +122,19 @@ const SearchResults = ({ query }) => {
       ${prefixMatches.length > 0 &&
       html`
         <div>
-          <${EntryList} data=${data} keys=${prefixMatches} />
+          <div>
+            <h3 className="entry-list-heading">Exact matches</h3>
+            <${EntryList} data=${data} keys=${prefixMatches} />
+          </div>
+        </div>
+      `}
+      ${infixMatches.length > 0 &&
+      html`
+        <div>
+          <div>
+            <h3 className="entry-list-heading">Similar matches</h3>
+            <${EntryList} data=${data} keys=${infixMatches} />
+          </div>
         </div>
       `}
     </div>
