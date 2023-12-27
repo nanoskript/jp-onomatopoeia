@@ -29,7 +29,7 @@ const TermSearchForm = ({ query, updateQuery }) => {
           type="text"
           value=${string}
           class="term-search-input"
-          placeholder="Romaji / Hiragana / Katakana"
+          placeholder="Romaji · ひらがな · カタカナ"
           oninput=${(e) => setString(e.target.value)}
           autocomplete="off"
           autocapitalize="none"
@@ -141,6 +141,29 @@ const SearchResults = ({ query }) => {
   `;
 };
 
+const Help = () => {
+  return html`
+    <details>
+      <summary>Help</summary>
+      <div className="help-content">
+        <p>
+          This tool lets you easily search for definitions of manga sound
+          effects and onomatopoeia. Type a sound effect in the search box, and
+          press${" "}
+          <b>Search</b> to find definitions for that sound effect. You can
+          search using romaji, hiragana, or katakana.
+        </p>
+        <p>
+          Results where your search term appears at the start of a sound effect
+          will appear under <b>Exact matches</b>. Results where your search term
+          appears in the middle of a sound effect will appear under${" "}
+          <b>Similar matches</b>.
+        </p>
+      </div>
+    </details>
+  `;
+};
+
 function usePageQuery() {
   const read = () => new URL(window.location).searchParams;
   const [query, setQuery] = useState(read());
@@ -164,6 +187,7 @@ const Page = () => {
   return html`
     <div>
       <${TermSearchForm} query=${query} updateQuery=${updateQuery} />
+      <${Help} />
       <${SearchResults} query=${query} />
     </div>
   `;
